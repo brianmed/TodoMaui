@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.Maui.Controls.Compatibility"
+             x:Class="TodoMaui.MainPage"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="0" Grid.Column="2"
+            Source="dotnet_bot.png"
+            WidthRequest="60"
+            HeightRequest="60"
+            HorizontalOptions="End" />
+
+        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label Text="Note" FontSize="24" />
+            <Entry BackgroundColor="{DynamicResource SecondaryColor}" TextColor="Gray" Text="{Binding Note}" />
+            <BoxView Color="Black" HeightRequest="1" />
+        </StackLayout>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+            Margin="0,15,0,0"
+            Text="Add"
+            FontAttributes="Bold"
+            Command="{Binding ClickAddTodoCommand}" />
+
+        <CollectionView ItemsSource="{Binding Todos}" Grid.Row="3" Grid.ColumnSpan="3"
+            SelectionMode="Single"
+            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+            SelectionChangedCommand="{Binding OnTodosSelectionCommand}">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="15">
+                        <Label Text="{Binding IsDone}" />
+                        <Label Text="{Binding Note}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
